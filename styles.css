@@ -1,29 +1,21 @@
 :root {
     --white: #ffffff;
-    --dark-brown: #2a2927;
-    --semi-brown:  #4d463b;
-    --light-brown: #6a563f;
-    --purple: #cca6c9;
-    --bright-purple: #edbde9;
-    --light-purple:  #f2f0f2;
-    --lighest-purple: #f5f2f5;
+    --dark-text: #1f1f1f;
+    --light-brown: #c49556;
+    --light-bg: #f2eff0;
+    --button: #813e58;
+}
+
+main {
+    margin-top: 70px !important;
 }
 
 /* font colors */
-.text-color {
-    color: var(--dark-brown) !important;
-}
-.text-color-footer {
-    color: var(--semi-brown) !important;
-    opacity: 0.8;
-}
-.text-color-footer:hover {
-    color: var(--dark-brown) !important;
-    opacity: 1;
-    text-decoration: underline wavy;
-    text-underline-offset: 0.3em;
+.text-color, main a {
+    color: var(--dark-text) !important;
 }
 
+/* fonts */
 h1, h2 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     letter-spacing: 0.5px;
@@ -55,12 +47,28 @@ h3 {
 
 /* navigation background */
 .navbar-custom {
-    background-color: rgba(81, 73, 58, 0.65);
+    background-color: rgba(55, 18, 23, 0.95);
 }
-.navbar-custom:hover {
-    background-color: rgba(81, 73, 58, 0.98);
-    transition: background-color 0.3s ease-in-out;
+
+
+/* logo color */
+.navbar-brand img{
+    opacity: 1;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(900%) hue-rotate(54deg) brightness(114%) contrast(86%); /* changing the color to light */
+    max-width: 100%;
 }
+
+/* logo size in mobile */
+@media (max-width: 575.98px) { /* for xs size and below */
+    .navbar-brand img {
+        max-width: 50px !important;
+    }
+}
+
+/* logo hover effect */
+.navbar-brand img:hover, .footer-brand img:hover{
+    opacity: 0.8;
+} 
 
 /* navigation text and link color */
 .navbar-custom .navbar-text,  .navbar-nav .nav-link {
@@ -70,8 +78,15 @@ h3 {
 /* links hover */
 .navbar-nav .nav-link:hover {
     color: var(--white);
-    text-decoration: underline wavy;
+    text-decoration: underline;
     text-underline-offset: 0.3em;
+}
+
+/* current page link */
+.current{
+    opacity: 0.6;
+    text-decoration: underline !important;
+    text-underline-offset: 0.3em !important;
 }
 
 /* remove the borders of the hamburger menu */
@@ -86,8 +101,28 @@ h3 {
     opacity: 0.9;
 }
 button:hover svg path  {
-    fill: var(--purple) ; 
+    fill: var(--light-bg) ; 
 }
 button:hover  {
     background-color: transparent !important; 
+}
+
+/* image size in the content */
+#vastaus img {
+    width: 100%;
+}
+
+/* light gray background color */
+.bg-color {
+    background-color: var(--light-bg) !important;
+}  
+
+.btn{
+    background-color: var(--button) !important;
+    color: var(--white) !important;
+}
+
+.btn:hover {
+    background-color: var(--light-brown) !important;
+    color: var(--white) !important;
 }

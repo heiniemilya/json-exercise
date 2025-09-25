@@ -1,0 +1,33 @@
+{
+    "nimi": "Digitekniikat",
+    "lkm": "5 kpl",
+    "osallistujat": [
+    {
+        "sukunimi": "Jaakkola",
+        "etunimi": "Jari"
+    },
+    {
+        "sukunimi": "Virtanen",
+        "etunimi":  "Maija"
+    },
+    {
+        "sukunimi": "Miettinen",
+        "etunimi": "Antti"
+    },
+    {
+        "sukunimi": "Korhonen",
+        "etunimi":  "Liisa"
+    },
+    {
+        "sukunimi": "Jokinen",
+        "etunimi": "Kalle"
+    }
+    ],
+    "kesto": {
+        "alku":  "18.8.",
+        "loppu": "10.10.",
+        "vuosi" : "2025",
+        "viikkoina": "8 viikkoa"
+    },
+    "kuva": "assets/pexels-fauxels-3184160.jpg"
+}

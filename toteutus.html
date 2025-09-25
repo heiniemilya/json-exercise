@@ -31,8 +31,8 @@
             <!-- Links -->
             <div id="my-nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto text-center px-3">
-                    <li class="nav-item"><a class="nav-link current" href="index.html">tehtävä 1.1</a></li>
-                    <li class="nav-item"><a class="nav-link" href="toteutus.html">tehtävä 1.2</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">tehtävä 1.1</a></li>
+                    <li class="nav-item"><a class="nav-link current" href="toteutus.html">tehtävä 1.2</a></li>
                     <li class="nav-item"><a class="nav-link" href="pokemon.html">tehtävä 2</a></li>
                     <li class="nav-item"><a class="nav-link" href="saa.html">tehtävä 3</a></li>
                 </ul>
@@ -41,13 +41,13 @@
     </nav>
 
 <main>
-    <section class="container-fluid py-1 py-sm-3 py-md-5 px-3 px-md-5">
-        <!-- JSON vastaus -->
-        <div id="vastaus" class=" my-4 my-md-5"></div>
+    <section class="container-fluid py-1 py-sm-3 py-md-5 px-3 px-md-5 ">
+         <!-- JSON vastaus -->
+        <div id="vastaus" class="col-12 col-sm-6 col-lg-4 my-4 my-md-5 p-4 bg-color"></div>
     </section>
 
     <script>
-         fetch("tietue.JSON")
+         fetch("toteutus.JSON")
          // muutetaan vastaus JS-olio muotoon
          .then(function(response) {
             return response.json();
@@ -63,26 +63,25 @@
             document.getElementById("vastaus").innerHTML = "<p> Tietoa ei pystytä hakemaan </p>";
          })
 
-        // funktio, joka käsittelee JS-olion
+         // funktio, joka käsittelee JS-olion
          function kerro(obj) {
-            let tiedot = "<h1>" + obj.otsikko + "</h1><br>" + obj.kuvaus + "<br><hr>"
-            + "<p><img src=" + obj.kuva + "></p><br>"
-            + "<center><h3>" + "Opintojakso" + "</h3>" + "Nimi: " + obj.opintojakso.nimi + "<br>" 
-            + "Tunnus: " + obj.opintojakso.tunnus + "<br>"
-            + "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br><br></center>";
-
-            tiedot += "<p><h3> Aiheet </h3>";
-            for (var i = 0; i < obj.tekniikat.length; i++) {
-                tiedot += obj.tekniikat[i].aihe + "<br>";
-                tiedot += "<a href=" + obj.tekniikat[i].linkki + ">" + obj.tekniikat[i].linkki + "</a>" + "<br>";
-                tiedot += "</p>";
+            let tiedot = "<h1>" + obj.nimi + "</h1><hr>"
+            + "<p>" + obj.lkm + "</p>"
+            + "<p>"
+            for (var i = 0; i < obj.osallistujat.length; i++) {
+                tiedot += obj.osallistujat[i].etunimi + " " + obj.osallistujat[i].sukunimi
+                if (i < obj.osallistujat.length - 1) {
+                    tiedot += ", "
+                }
             }
+            "</p>"
+            tiedot += "<p>" + obj.kesto.alku + "-" + obj.kesto.loppu + obj.kesto.vuosi + "</p>"
+            + "<p>" + obj.kesto.viikkoina + "</p><br>"
+            + "<p><img src=" + obj.kuva + "></p>";
+            
             // tulostetaan tiedot
             document.getElementById("vastaus").innerHTML = tiedot;
-         
          }
-
-
     </script>
    
 </main>
