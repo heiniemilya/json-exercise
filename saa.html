@@ -11,8 +11,6 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Bootstrap -->
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50" id="top">
@@ -35,104 +33,69 @@
                 <ul class="navbar-nav ms-auto text-center px-3">
                     <li class="nav-item"><a class="nav-link" href="index.html">tehtävä 1.1</a></li>
                     <li class="nav-item"><a class="nav-link" href="toteutus.html">tehtävä 1.2</a></li>
-                    <li class="nav-item"><a class="nav-link current" href="pokemon.html">tehtävä 2</a></li>
-                    <li class="nav-item"><a class="nav-link" href="saa.html">tehtävä 3</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pokemon.html">tehtävä 2</a></li>
+                    <li class="nav-item"><a class="nav-link current" href="saa.html">tehtävä 3</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <main>
-        <section class="pokehaku col-12 col-sm-8 col-md-6 mx-auto text-center py-1 py-sm-3 py-md-5 px-3 px-md-5">
-            <!-- otsikko -->
-            <h1 class=" my-4 my-md-5">Pokemon haku</h1>
-            <!-- hakukenttä ja painike-->
-            <label for="pokemonNimi" class="form-label">Pokemonin nimi:</label>
-            <div class="input-group mx-auto" style="max-width: 450px;">
-                <input type="text" class="form-control" id="pokemonNimi">
-                <button onclick="poke()" id="haeNappi" class="btn btn-custom px-4">Hae</button>
+        <section class="col-12 col-sm-8 col-md-6 mx-auto text-center py-1 py-sm-3 py-md-5 px-3 px-md-5">
+            <h1 class=" mt-4 mt-md-5">Helsingin sää</h1>
+            <!-- JSON vastaukset -->
+            <p id="aika" class="pb-2"></p>
+            <div id="saa-tiedot">
+                <p id="kuva" class="mx-auto"></p>
+                <p id="saa"></p>
+                <p id="lampo"></p>
+                <p id="tuuli"></p>
             </div>
-            <!-- aputeksti --> 
-            <small id="helpId" class="form-text text-muted">Hae pokemonin tiedot nimen perusteella. <br> Esim. "pikachu"</small>
-            <!-- paikka pokemonin tiedoille -->
-            <p id="nimi"></p>
-            <p id="info"></p>
-            <div id="kuva2"></div>
-            <div id="kaanna"></div>
-
         </section>
     </main>
 
     <script>
-        function poke(){
-            // tallennetaan pokename-muuttujaan käyttäjän syöttämä arvo
-            const pokeName = document.getElementById("pokemonNimi").value.toLowerCase();
-            // tallennetaan syötetty arvo myös muuttujaan nimi
-            let nimi = document.getElementById("pokemonNimi").value;
+        const apiKey = "2bdd0f8a950001408d7344d0a4d76b76"; // oma API-avain
+        const cityId = 658225; // Helsingin kaupungin ID
+        const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&lang=fi&units=metric`;
+        // haetaan data OpenWeatherMap API:sta
+        fetch(url)
+         // tehdään JSON-muunnos
+        .then(function(response) {
+            return response.json();
+        })
+        // käsitellään data
+        .then(data => {
+            // aika, sää, tuuli, lämpötila ja kuva
+            const aika = new Date().toLocaleDateString('fi-FI', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            }) + " klo " + new Date().toLocaleTimeString('fi-FI', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const saatila = data.weather[0].description;
+            const tuuli = `Tuuli: ${data.wind.speed} m/s`;
+            const lampo = `Lämpötila: ${data.main.temp} °C`;
+            const saa = `${saatila}`;
+            const kuva = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${saatila}">`;
 
-            fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
-
-            // muutetaan JSON-muotoon
-            .then(function(response){
-                return response.json();
-            })
-            // käsitellään data
-            .then(responseJson => {
-            currentPokemon = responseJson;
-            showingFront = true; // näytetään pokemonin etupuoli aluksi
-            pokekuva();
-            })
-            // virheiden käsittely
-            .catch(function(error){
-                console.log(error);
-                document.getElementById("nimi").innerHTML = "";
-                document.getElementById("info").innerHTML = "";
-                document.getElementById("kuva2").innerHTML = "";
-                document.getElementById("kaanna").innerHTML = "";
-                document.getElementById("info").innerHTML = "<br><p class='text-danger'>Tietoa ei pystytä hakemaan.</p>";
-            })
-        }
-
-        function pokekuva() {
-            if (!currentPokemon) return;
-            // tallennetaan etukuvan linkki muuttujaan pokeurl
-            let pokeurl = currentPokemon.sprites.front_default;
-            // nimen kirjoittaminen HTML:ään
-            document.getElementById("nimi").innerHTML = "<br>" + currentPokemon.name + "<br>";
-            // pituuden, painon ja XP:n kirjoittaminen HTML:ään
-            document.getElementById("info").innerHTML = 
-                "Pituus: " + (currentPokemon.height * 10) + " cm <br>" 
-                + "Paino: " + (currentPokemon.weight / 10) + " kg <br>" 
-                + "XP: " + currentPokemon.base_experience;
-            // kuvan kirjoittaminen HTML:ään
-            document.getElementById("kuva2").innerHTML ="<img src='" + pokeurl + "' alt='pokemonin kuva'>";
-            // tyhjennetään hakukenttä
-            document.getElementById("pokemonNimi").value = "";
-            // lisätään nappi kuvan kääntämistä varten
-            document.getElementById("kaanna").innerHTML = '<button onclick="kaannakuva()" id="kaannaNappi" class="btn btn-link icon-btn" aria-label="Käännä kuva"><i class="bi bi-arrow-repeat fs-1 text-dark"></i></button>';
-        }
-
-        function kaannakuva(){
-            if (!currentPokemon) return;
-
-            // lisätään pyörimisefekti nappiin
-            const icon = document.querySelector("#kaanna i");
-            icon.classList.add("spin");
-            setTimeout(() => icon.classList.remove("spin"), 500);
-
-            let pokeurl;
-            // käännetään kuvaa napin painalluksella edestä taakse ja takaisin
-            if (showingFront) {
-                pokeurl = currentPokemon.sprites.back_default;
-                showingFront = false;
-            } else {
-                pokeurl = currentPokemon.sprites.front_default;
-                showingFront = true;
-            }
-            // kuvan kirjoittaminen HTML:ään
-            document.getElementById("kuva2").innerHTML ="<img src='" + pokeurl + "' alt='pokemonin kuva takaa'>";
-        }
+            // näytetään tiedot HTML:ssä
+            document.getElementById('aika').innerHTML = aika;
+            document.getElementById('kuva').innerHTML = kuva;
+            document.getElementById('saa').innerHTML = saa;
+            document.getElementById('tuuli').innerHTML = tuuli;
+            document.getElementById('lampo').innerHTML = lampo;
+        })
+        // virheenkäsittely
+        .catch(error => {
+            console.error('Virhe haettaessa säätietoja:', error);
+            document.getElementById('saa-tiedot').innerHTML = '<p>Ei saatu säätietoja.</p>';
+        });
     </script>
+   
 
 </body>
 </html>

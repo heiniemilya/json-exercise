@@ -3,7 +3,7 @@
     --dark-text: #1f1f1f;
     --light-brown: #c49556;
     --light-bg: #f2eff0;
-    --button: #813e58;
+    --button: #9e5049;
 }
 
 main {
@@ -47,7 +47,7 @@ h3 {
 
 /* navigation background */
 .navbar-custom {
-    background-color: rgba(55, 18, 23, 0.95);
+    background-color: rgba(78, 27, 42, 0.95);
 }
 
 
@@ -117,12 +117,48 @@ button:hover  {
     background-color: var(--light-bg) !important;
 }  
 
-.btn{
+/* button colors */
+.btn-custom{
     background-color: var(--button) !important;
     color: var(--white) !important;
 }
-
-.btn:hover {
-    background-color: var(--light-brown) !important;
+.btn-custom:hover {
+    background-color: #804540 !important;
     color: var(--white) !important;
 }
+
+/* pokemon name text */
+.pokehaku #nimi {
+    text-transform: capitalize !important;
+    font-weight: 600 !important;
+}
+
+/* turn icon animation */
+.icon-btn i {
+    display: inline-block;
+}
+.icon-btn i:hover {
+    color:#9e5049 !important;
+}
+.spin {
+    transform: rotate(180deg);
+    transition: transform 0.5s;
+}
+
+#saa-tiedot #saa:first-letter{
+    text-transform: uppercase !important;
+}
+
+#saa-tiedot #kuva{
+    background-color: #799eaa;
+    width: 65px;
+    height: 65px;
+    align-content: center;
+    border-radius: 50%;
+}
+
+#aika{
+    font-size: 14px !important;
+}
+
+
