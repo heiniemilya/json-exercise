@@ -66,16 +66,19 @@
         })
         // käsitellään data
         .then(data => {
-            // aika, sää, tuuli, lämpötila ja kuva
-            const aika = new Date().toLocaleDateString('fi-FI', {
+            // aika
+            const nyt = new Date();
+            const aika = nyt.toLocaleDateString('fi-FI', {
                 weekday: 'short',
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric'
-            }) + " klo " + new Date().toLocaleTimeString('fi-FI', {
+            }) + " klo " + nyt.toLocaleTimeString('fi-FI', {
                 hour: '2-digit',
                 minute: '2-digit'
             });
+
+            // sää, tuuli, lämpötila ja kuva
             const saatila = data.weather[0].description;
             const tuuli = `Tuuli: ${data.wind.speed} m/s`;
             const lampo = `Lämpötila: ${data.main.temp} °C`;
@@ -96,6 +99,5 @@
         });
     </script>
    
-
 </body>
 </html>
